@@ -1,10 +1,10 @@
 // import React from 'react'
 import { Link } from "react-router-dom";
-import "./Login.scss";
+import "./Register.scss";
 
-const Login = () => {
+const Register = () => {
   return (
-    <div className="Login">
+    <div className="Register">
       <div className="high">
         <div className="lg:grid lg:grid-cols-2 lg:space-y-0">
           {/*  */}
@@ -40,11 +40,21 @@ const Login = () => {
             <div className="p-20">
               <div className="p-10 rounded-2xl shadow-xl bg-black text-white">
                 <div className="text-center flex justify-center">
-                  <h2 className="font-bold text-4xl">Login</h2>
+                  <h2 className="font-bold text-4xl">Create an Account</h2>
                 </div>
                 <div className="mt-10">
                   <form>
                     <div className="">
+                      <label className="w-full text-sm" htmlFor="">
+                        Name
+                      </label>
+                      <input
+                        type="text"
+                        className="mt-3 w-full p-2 rounded-lg outline-none border border-black text-black text-sm"
+                        placeholder="John Doe"
+                      />
+                    </div>
+                    <div className="mt-5">
                       <label className="w-full text-sm" htmlFor="">
                         Email Address
                       </label>
@@ -71,9 +81,9 @@ const Login = () => {
                     </div>
                     <div className="mt-10">
                       <p className="text-sm text-center">
-                        Don`t have an account?{" "}
+                        Already have an account?{" "}
                         <span className="underline font-bold">
-                          <Link to="/register">Register here</Link>
+                          <Link to="/">Login</Link>
                         </span>
                       </p>
                     </div>
@@ -94,4 +104,4 @@ const Login = () => {
   );
 };
 
-export default Login;
+export default Register;
