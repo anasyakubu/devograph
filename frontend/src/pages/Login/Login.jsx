@@ -5,12 +5,12 @@ import "./Login.scss";
 const Login = () => {
   return (
     <div className="Login">
-      <div className="high" style={{ height: "100vh" }}>
-        <div className="space-y-2 lg:grid lg:grid-cols-2 lg:space-y-0">
+      <div className="high">
+        <div className="lg:grid lg:grid-cols-2 lg:space-y-0">
           {/*  */}
           <div className="bg-white text-black text" style={{ height: "100vh" }}>
             <div className="">
-              <div className="my-10 p-20">
+              <div className="p-20">
                 <div className="my-24">
                   <h2 className="font-extrabold text-2xl">Devograph</h2>
                 </div>
@@ -33,36 +33,39 @@ const Login = () => {
             </div>
           </div>
           {/*  */}
-          <div className="text-black form" style={{ height: "100vh" }}>
-            <div className="">
-              <div className="m-10 my-24 p-10 rounded-2xl shadow-xl bg-black text-white">
+          <div
+            className="text-black form"
+            // style={{ height: "100vh" }}
+          >
+            <div className="p-20">
+              <div className="p-10 rounded-2xl shadow-xl bg-black text-white">
                 <div className="text-center flex justify-center">
                   <h2 className="font-bold text-4xl">Login</h2>
                 </div>
                 <div className="mt-10">
                   <form>
                     <div className="">
-                      <label className="w-full" htmlFor="">
+                      <label className="w-full text-sm" htmlFor="">
                         Email Address
                       </label>
                       <input
                         type="text"
-                        className="mt-3 w-full p-2 rounded-lg outline-none border border-black text-black"
+                        className="mt-3 w-full p-2 rounded-lg outline-none border border-black text-black text-sm"
                         placeholder="example@gmail.com"
                       />
                     </div>
                     <div className="mt-5">
-                      <label className="w-full" htmlFor="">
+                      <label className="w-full text-sm" htmlFor="">
                         Password
                       </label>
                       <input
                         type="password"
-                        className="mt-3 w-full p-2 rounded-lg outline-none border border-black text-black"
+                        className="mt-3 w-full p-2 rounded-lg outline-none border border-black text-black text-sm"
                         placeholder="********"
                       />
                     </div>
                     <div className="mt-5">
-                      <button className="p-2 pl-5 pr-5 bg-white text-black rounded-lg">
+                      <button className="p-2 pl-5 pr-5 bg-white text-sm text-black rounded-lg">
                         Continue
                       </button>
                     </div>
