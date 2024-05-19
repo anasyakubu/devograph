@@ -1,32 +1,15 @@
-.form {
-  background: linear-gradient(
-      45deg,
-      #0000 calc(25% / 3),
-      #ffffff 0 calc(50% / 3),
-      #0000 0 calc(250% / 3),
-      #ffffff 0 calc(275% / 3),
-      #0000 0
-    ),
-    linear-gradient(
-      45deg,
-      #ffffff calc(25% / 3),
-      #0000 0 calc(50% / 3),
-      #ffffff 0 25%,
-      #0000 0 75%,
-      #ffffff 0 calc(250% / 3),
-      #0000 0 calc(275% / 3),
-      #ffffff 0
-    ),
-    linear-gradient(
-      -45deg,
-      #0000 calc(25% / 3),
-      #ffffff 0 calc(50% / 3),
-      #0000 0 calc(250% / 3),
-      #ffffff 0 calc(275% / 3),
-      #0000 0
-    ),
-    linear-gradient(
-        -45deg,
+.Login {
+  .form {
+    background: linear-gradient(
+        45deg,
+        #0000 calc(25% / 3),
+        #ffffff 0 calc(50% / 3),
+        #0000 0 calc(250% / 3),
+        #ffffff 0 calc(275% / 3),
+        #0000 0
+      ),
+      linear-gradient(
+        45deg,
         #ffffff calc(25% / 3),
         #0000 0 calc(50% / 3),
         #ffffff 0 25%,
@@ -34,8 +17,49 @@
         #ffffff 0 calc(250% / 3),
         #0000 0 calc(275% / 3),
         #ffffff 0
-      )
-      #000000;
-  background-size: 34px 34px;
-  background-position: 0 0, 17px 17px;
+      ),
+      linear-gradient(
+        -45deg,
+        #0000 calc(25% / 3),
+        #ffffff 0 calc(50% / 3),
+        #0000 0 calc(250% / 3),
+        #ffffff 0 calc(275% / 3),
+        #0000 0
+      ),
+      linear-gradient(
+          -45deg,
+          #ffffff calc(25% / 3),
+          #0000 0 calc(50% / 3),
+          #ffffff 0 25%,
+          #0000 0 75%,
+          #ffffff 0 calc(250% / 3),
+          #0000 0 calc(275% / 3),
+          #ffffff 0
+        )
+        #000000;
+    background-size: 34px 34px;
+    background-position: 0 0, 17px 17px;
+  }
+}
+
+@media (max-width: 600px) {
+  .Login {
+    // .high {
+    //   height: 100vh;
+    // }
+    .text {
+      display: none;
+    }
+    .form {
+      display: flex;
+      justify-content: center;
+      .p-10 {
+        padding: 5%;
+      }
+      .m-10 {
+        margin: 1%;
+        margin-top: 25%;
+      }
+    }
+  }
 }

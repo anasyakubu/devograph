@@ -1,13 +1,14 @@
 // import React from 'react'
+import { Link } from "react-router-dom";
 import "./Login.scss";
 
 const Login = () => {
   return (
     <div className="Login">
-      <div className="" style={{ height: "100vh" }}>
+      <div className="high" style={{ height: "100vh" }}>
         <div className="space-y-2 lg:grid lg:grid-cols-2 lg:space-y-0">
           {/*  */}
-          <div className="bg-white text-black" style={{ height: "100vh" }}>
+          <div className="bg-white text-black text" style={{ height: "100vh" }}>
             <div className="">
               <div className="my-10 p-20">
                 <div className="my-24">
@@ -34,9 +35,9 @@ const Login = () => {
           {/*  */}
           <div className="text-black form" style={{ height: "100vh" }}>
             <div className="">
-              <div className="m-10 my-24 p-10 rounded-xl shadow-xl bg-black text-white">
+              <div className="m-10 my-24 p-10 rounded-2xl shadow-xl bg-black text-white">
                 <div className="text-center flex justify-center">
-                  <h2 className="font-semibold text-2xl">Login</h2>
+                  <h2 className="font-bold text-4xl">Login</h2>
                 </div>
                 <div className="mt-10">
                   <form>
@@ -66,7 +67,15 @@ const Login = () => {
                       </button>
                     </div>
                     <div className="mt-10">
-                      <p className="text-sm">
+                      <p className="text-sm text-center">
+                        Don`t have an account?{" "}
+                        <span className="underline font-bold">
+                          <Link to="/Register">Register here</Link>
+                        </span>
+                      </p>
+                    </div>
+                    <div className="mt-5">
+                      <p className="text-sm text-center">
                         By continuing, you agree to the Self Service PSS and
                         Privacy Policy.
                       </p>
