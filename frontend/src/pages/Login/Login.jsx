@@ -8,7 +8,7 @@ const Login = () => {
       <div className="high">
         <div className="lg:grid lg:grid-cols-2 lg:space-y-0">
           {/*  */}
-          <div className="bg-white text-black text" style={{ height: "100vh" }}>
+          <div className="bg-black text-white text" style={{ height: "100vh" }}>
             <div className="">
               <div className="p-20">
                 <div className="my-24">
@@ -16,11 +16,10 @@ const Login = () => {
                 </div>
 
                 <div className="my-24">
-                  <h6 className="font-bold text-5xl">
-                    Start documenting with your free plan
-                  </h6>
+                  <h6 className="font-bold text-5xl">Welcome Back 🙋</h6>
                   <p className="mt-8 font-semibold text-lg">
-                    No credit card required.
+                    Manage your <span className="underline">Tasks</span> in a
+                    easy and efficient way with devograph.
                   </p>
                 </div>
 
@@ -38,7 +37,7 @@ const Login = () => {
             // style={{ height: "100vh" }}
           >
             <div className="p-20">
-              <div className="p-10 rounded-2xl shadow-xl bg-black text-white">
+              <div className="p-10 rounded-2xl shadow-xl bg-white text-black">
                 <div className="text-center flex justify-center">
                   <h2 className="font-bold text-4xl">Login</h2>
                 </div>
@@ -46,17 +45,19 @@ const Login = () => {
                   <form>
                     <div className="">
                       <label className="w-full text-sm" htmlFor="">
-                        Email Address
+                        Email Address{" "}
+                        <span className="text-red-600 font-bold">*</span>
                       </label>
                       <input
                         type="text"
                         className="mt-3 w-full p-2 rounded-lg outline-none border border-black text-black text-sm"
-                        placeholder="example@gmail.com"
+                        placeholder="john@gmail.com"
                       />
                     </div>
                     <div className="mt-5">
                       <label className="w-full text-sm" htmlFor="">
-                        Password
+                        Password{" "}
+                        <span className="text-red-600 font-bold">*</span>
                       </label>
                       <input
                         type="password"
@@ -65,7 +66,7 @@ const Login = () => {
                       />
                     </div>
                     <div className="mt-5">
-                      <button className="p-2 pl-5 pr-5 bg-white text-sm text-black rounded-lg">
+                      <button className="p-2 pl-5 pr-5 bg-black text-sm text-white rounded-lg">
                         Continue
                       </button>
                     </div>
