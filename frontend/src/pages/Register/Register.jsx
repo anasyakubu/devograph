@@ -1,8 +1,15 @@
 // import React from 'react'
 import { Link } from "react-router-dom";
 import "./Register.scss";
+import { toast } from "react-hot-toast";
 
 const Register = () => {
+  // handle registration
+  const handleRegistration = async (e) => {
+    e.preventDefault();
+    toast.success("Register Success");
+  };
+
   return (
     <div className="Register">
       <div className="high">
@@ -43,14 +50,14 @@ const Register = () => {
                   <h2 className="font-bold text-4xl">Create an Account</h2>
                 </div>
                 <div className="mt-10">
-                  <form>
+                  <form onSubmit={handleRegistration}>
                     <div className="">
                       <label className="w-full text-sm" htmlFor="">
                         Name <span className="text-red-600 font-bold">*</span>
                       </label>
                       <input
                         type="text"
-                        className="mt-3 w-full p-2 rounded-lg outline-none border border-black text-black text-sm"
+                        className="mt-3 w-full p-2 rounded-lg outline-none border bg-white border-black text-black text-sm"
                         placeholder="John Doe"
                       />
                     </div>
@@ -61,7 +68,7 @@ const Register = () => {
                       </label>
                       <input
                         type="text"
-                        className="mt-3 w-full p-2 rounded-lg outline-none border border-black text-black text-sm"
+                        className="mt-3 w-full p-2 rounded-lg outline-none border bg-white border-black text-black text-sm"
                         placeholder="joh@gmail.com"
                       />
                     </div>
@@ -73,7 +80,7 @@ const Register = () => {
                       </label>
                       <input
                         type="password"
-                        className="mt-3 w-full p-2 rounded-lg outline-none border border-black text-black text-sm"
+                        className="mt-3 w-full p-2 rounded-lg outline-none border bg-white border-black text-black text-sm"
                         placeholder="********"
                       />
                     </div>

@@ -1,0 +1,12 @@
+.HomeHeader {
+  height: 100vh;
+}
+
+@media (max-width: 600px) {
+  .HomeHeader {
+    .p-10 {
+      padding: 5%;
+    }
+    height: 100%;
+  }
+}

@@ -1,8 +1,14 @@
 // import React from 'react'
 import { Link } from "react-router-dom";
 import "./Login.scss";
+import { toast } from "react-hot-toast";
 
 const Login = () => {
+  // handle registration
+  const handleLogin = async (e) => {
+    e.preventDefault();
+    toast.success("Register Success");
+  };
   return (
     <div className="Login">
       <div className="high">
@@ -42,7 +48,7 @@ const Login = () => {
                   <h2 className="font-bold text-4xl">Login</h2>
                 </div>
                 <div className="mt-10">
-                  <form>
+                  <form onSubmit={handleLogin}>
                     <div className="">
                       <label className="w-full text-sm" htmlFor="">
                         Email Address{" "}
@@ -50,7 +56,7 @@ const Login = () => {
                       </label>
                       <input
                         type="text"
-                        className="mt-3 w-full p-2 rounded-lg outline-none border border-black text-black text-sm"
+                        className="mt-3 w-full p-2 rounded-lg outline-none border bg-white border-black text-black text-sm"
                         placeholder="john@gmail.com"
                       />
                     </div>
@@ -61,13 +67,14 @@ const Login = () => {
                       </label>
                       <input
                         type="password"
-                        className="mt-3 w-full p-2 rounded-lg outline-none border border-black text-black text-sm"
+                        className="mt-3 w-full p-2 rounded-lg outline-none border bg-white border-black text-black text-sm"
                         placeholder="********"
                       />
                     </div>
                     <div className="mt-5">
                       <button className="p-2 pl-5 pr-5 bg-black text-sm text-white rounded-lg">
                         Continue
+                        {/* <div className="spinner"></div> */}
                       </button>
                     </div>
                     <div className="mt-10">
