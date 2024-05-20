@@ -1,0 +1,21 @@
+.Update {
+  .background {
+    background-image: repeating-linear-gradient(
+      45deg,
+      #000000 0,
+      #000000 3.5px,
+      transparent 0,
+      transparent 50%
+    );
+    background-size: 20px 20px;
+    background-color: #ffffff;
+  }
+}
+
+@media (max-width: 600px) {
+  .Update {
+    .p-10 {
+      padding: 3%;
+    }
+  }
+}

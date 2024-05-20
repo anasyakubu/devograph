@@ -6,6 +6,7 @@ import Register from "./pages/Register/Register";
 import { Toaster } from "react-hot-toast";
 import Task from "./pages/Tasks/Task";
 import CreateTask from "./pages/CreateTask/CreateTask";
+import UpdateTask from "./pages/UpdateTask/UpdateTask";
 
 function App() {
   return (
@@ -18,6 +19,7 @@ function App() {
           <Route path="/register" element={<Register />}></Route>
           <Route path="/tasks" element={<Task />}></Route>
           <Route path="/create-task" element={<CreateTask />}></Route>
+          <Route path="/update-task/:id" element={<UpdateTask />}></Route>
         </Routes>
       </BrowserRouter>
     </>

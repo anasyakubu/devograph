@@ -1,9 +1,9 @@
 // import React from "react";
-import "./Create.scss";
+import "./Update.scss";
 
-const Create = () => {
+const Update = () => {
   return (
-    <div className="Create">
+    <div className="Update">
       <div className="p-10">
         <div className="sm:py-5">
           <div className="space-y-2 lg:grid lg:grid-cols-2 lg:gap-x-6 lg:space-y-0">
@@ -14,7 +14,7 @@ const Create = () => {
                   className="text-4xl font-extrabold text-black"
                   style={{ fontSize: "3rem" }}
                 >
-                  Create Task
+                  Update Task
                 </h1>
               </div>
               <div className="mt-10">
@@ -53,7 +53,7 @@ const Create = () => {
                   </div>
                   <div className="mt-5 justify-center flex">
                     <button className="bg-black text-white p-2 pr-5 pl-5 rounded-md shadow-lg">
-                      Add
+                      Update
                     </button>
                   </div>
                 </form>
@@ -68,4 +68,4 @@ const Create = () => {
   );
 };
 
-export default Create;
+export default Update;
