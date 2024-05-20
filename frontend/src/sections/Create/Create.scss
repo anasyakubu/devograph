@@ -1,0 +1,24 @@
+.Create {
+  .background {
+    background: conic-gradient(at 62.5% 12.5%, #000000 25%, #0000 0)
+        calc(37px / -8) calc(37px / 2),
+      conic-gradient(at 62.5% 12.5%, #000000 25%, #0000 0) calc(-3 * 37px / 8)
+        calc(37px / 4),
+      conic-gradient(at 87.5% 62.5%, #000000 25%, #0000 0) calc(3 * 37px / 8)
+        calc(37px / 4),
+      conic-gradient(at 87.5% 62.5%, #000000 25%, #0000 0) calc(37px / -8) 0,
+      conic-gradient(at 25% 12.5%, #000000 25%, #0000 0) 0 calc(37px / -4),
+      conic-gradient(at 25% 12.5%, #000000 25%, #0000 0) calc(37px / -4) 0,
+      conic-gradient(at 87.5% 87.5%, #000000 25%, #0000 0) calc(37px / 8) 0
+        #ffffff;
+    background-size: 37px 37px;
+  }
+}
+
+@media (max-width: 600px) {
+  .Create {
+    .p-10 {
+      padding: 3%;
+    }
+  }
+}

@@ -63,7 +63,7 @@ const TasksList = () => {
                   Inprogress (10)
                 </span>
                 <span className="bg-green-500 p-2 rounded-md">Done (10)</span>
-                <span className="bg-red-500 p-2 rounded-md">Not Done (10)</span>
+                <span className="bg-red-500 p-2 rounded-md">Expire (10)</span>
                 <span className="bg-black text-white p-2 rounded-md">
                   Total (30)
                 </span>
