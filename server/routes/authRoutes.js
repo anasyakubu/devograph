@@ -5,6 +5,8 @@ const cros = require("cors");
 const {
   test,
   registerUser,
+  taskList,
+  createTask,
   loginUser,
   getProfile,
 } = require("../controllers/authControllers");
@@ -23,6 +25,8 @@ router.use(
 router.get("/", test);
 router.post("/register", registerUser);
 router.post("/login", loginUser);
+router.get("/taskList", taskList);
+router.post("/createTask", createTask);
 router.get("/profile", requireAuth, getProfile);
 
 module.exports = router;

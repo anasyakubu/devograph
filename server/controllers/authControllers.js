@@ -1,4 +1,5 @@
 const User = require("../models/user");
+const Task = require("../models/task");
 const { hashPassword, comparePassword } = require("../helpers/auth");
 const jwt = require("jsonwebtoken");
 
@@ -88,15 +89,53 @@ const getProfile = (req, res) => {
     status: 200,
     // userId: user._id,
   });
-  // const { token } = req.cookies;
-  // if (token) {
-  //   jwt.verify(token, process.env.JWT_SECRET, {}, (err, user) => {
-  //     if (err) throw err;
-  //     res.json(user);
-  //   });
-  // } else {
-  //   res.json(null);
-  // }
+};
+
+// List Task
+const taskList = (req, res) => {
+  // const { userID } = req.body;
+  // console.log(userID);
+  Task.find({})
+    .then((user) => res.json(user))
+    .catch((err) => console.log(err));
+};
+
+const createTask = async (req, res) => {
+  try {
+    const { name, description, status, userID } = req.body;
+    // check if name was entered
+    if (!name) {
+      return res.json({
+        error: "Task Name is required",
+      });
+    } else if (!description) {
+      return res.json({
+        error: "Task Description is required",
+      });
+    } else if (!userID) {
+      return res.json({
+        error: "UserID is required",
+      });
+    }
+    // check task exist
+    const exist = await Task.findOne({ name });
+    if (exist) {
+      return res.json({
+        error: "Task Already Added",
+      });
+    }
+
+    // create Task in db
+    const task = await Task.create({
+      name,
+      description,
+      status: "Inprogress",
+      userID,
+    });
+    return res.json(task);
+  } catch (error) {
+    console.log(error);
+  }
 };
 
 module.exports = {
@@ -104,4 +143,6 @@ module.exports = {
   registerUser,
   loginUser,
   getProfile,
+  taskList,
+  createTask,
 };
