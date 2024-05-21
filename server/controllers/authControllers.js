@@ -86,6 +86,7 @@ const getProfile = (req, res) => {
   res.json({
     message: "Authorized",
     status: 200,
+    // userId: user._id,
   });
   // const { token } = req.cookies;
   // if (token) {

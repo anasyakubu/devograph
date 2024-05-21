@@ -22,7 +22,9 @@ const Login = () => {
       console.log(response.data);
       console.log(response.data.token);
       const token = response.data.token;
+      const userId = response.data.userId;
       localStorage.setItem("token", token);
+      localStorage.setItem("userID", userId);
       toast.success("Login Success");
       navigate("/tasks");
       // setLoggedIn(true);

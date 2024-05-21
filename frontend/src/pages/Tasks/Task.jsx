@@ -8,6 +8,7 @@ import { useNavigate } from "react-router-dom";
 const Task = () => {
   const navigate = useNavigate();
   const [data, setData] = useState(null);
+  const [userID, setUserID] = useState(null);
   const [isLoading, setIsLoading] = useState(true);
   const [isAuthenticated, setIsAuthenticated] = useState(false);
 
@@ -16,6 +17,8 @@ const Task = () => {
       try {
         // Retrieve  token from localStorage
         const token = localStorage.getItem("token");
+        setUserID(localStorage.getItem("userID"));
+        // setUserID(userID);
         const headersList = {
           Authorization: `Bearer ${token}`,
         };
@@ -54,6 +57,7 @@ const Task = () => {
     <div className="Task bg-white text-black">
       <Nav />
       <h2>Protected Data: {JSON.stringify(data)}</h2>
+      <p>UserID:{userID}</p>
       <TasksList />
       <Footer />
     </div>
