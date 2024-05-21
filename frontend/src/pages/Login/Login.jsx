@@ -1,13 +1,34 @@
-// import React from 'react'
+import { useState } from "react";
 import { Link } from "react-router-dom";
 import "./Login.scss";
 import { toast } from "react-hot-toast";
+import { useNavigate } from "react-router-dom";
+import axios from "axios";
 
 const Login = () => {
+  const navigate = useNavigate();
+  const [data, setDate] = useState({
+    email: "",
+    password: "",
+  });
+
   // handle registration
   const handleLogin = async (e) => {
     e.preventDefault();
-    toast.success("Register Success");
+    const { email, password } = data;
+    try {
+      const response = await axios.post("/login", { email, password });
+      console.log(response);
+      console.log(response.data);
+      console.log(response.data.token);
+      const token = response.data.token;
+      localStorage.setItem("token", token);
+      toast.success("Login Success");
+      navigate("/tasks");
+      // setLoggedIn(true);
+    } catch (error) {
+      console.error("Login error:", error);
+    }
   };
   return (
     <div className="Login">
@@ -58,6 +79,10 @@ const Login = () => {
                         type="text"
                         className="mt-3 w-full p-2 rounded-lg outline-none border bg-white border-black text-black text-sm"
                         placeholder="john@gmail.com"
+                        value={data.email}
+                        onChange={(e) =>
+                          setDate({ ...data, email: e.target.value })
+                        }
                       />
                     </div>
                     <div className="mt-5">
@@ -69,10 +94,17 @@ const Login = () => {
                         type="password"
                         className="mt-3 w-full p-2 rounded-lg outline-none border bg-white border-black text-black text-sm"
                         placeholder="********"
+                        value={data.password}
+                        onChange={(e) =>
+                          setDate({ ...data, password: e.target.value })
+                        }
                       />
                     </div>
                     <div className="mt-5">
-                      <button className="p-2 pl-5 pr-5 bg-black text-sm text-white rounded-lg">
+                      <button
+                        type="submit"
+                        className="p-2 pl-5 pr-5 bg-black text-sm text-white rounded-lg"
+                      >
                         Continue
                         {/* <div className="spinner"></div> */}
                       </button>

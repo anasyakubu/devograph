@@ -1,13 +1,34 @@
-// import React from 'react'
+import { useState } from "react";
 import { Link } from "react-router-dom";
 import "./Register.scss";
 import { toast } from "react-hot-toast";
+import { useNavigate } from "react-router-dom";
+import axios from "axios";
 
 const Register = () => {
+  const navigate = useNavigate();
+  const [data, setDate] = useState({
+    name: "",
+    email: "",
+    password: "",
+  });
   // handle registration
   const handleRegistration = async (e) => {
     e.preventDefault();
-    toast.success("Register Success");
+    const { name, email, password } = data;
+
+    try {
+      const { data } = await axios.post("/register", { name, email, password });
+      if (data.error) {
+        toast.error(data.error);
+      } else {
+        setDate({});
+        toast.success("Account Created Successfully");
+        navigate("/login");
+      }
+    } catch (error) {
+      console.log(error);
+    }
   };
 
   return (
@@ -59,6 +80,10 @@ const Register = () => {
                         type="text"
                         className="mt-3 w-full p-2 rounded-lg outline-none border bg-white border-black text-black text-sm"
                         placeholder="John Doe"
+                        value={data.name}
+                        onChange={(e) =>
+                          setDate({ ...data, name: e.target.value })
+                        }
                       />
                     </div>
                     <div className="mt-5">
@@ -70,6 +95,10 @@ const Register = () => {
                         type="text"
                         className="mt-3 w-full p-2 rounded-lg outline-none border bg-white border-black text-black text-sm"
                         placeholder="joh@gmail.com"
+                        value={data.email}
+                        onChange={(e) =>
+                          setDate({ ...data, email: e.target.value })
+                        }
                       />
                     </div>
 
@@ -82,10 +111,17 @@ const Register = () => {
                         type="password"
                         className="mt-3 w-full p-2 rounded-lg outline-none border bg-white border-black text-black text-sm"
                         placeholder="********"
+                        value={data.password}
+                        onChange={(e) =>
+                          setDate({ ...data, password: e.target.value })
+                        }
                       />
                     </div>
                     <div className="mt-5">
-                      <button className="p-2 pl-5 pr-5 bg-black text-sm text-white rounded-lg">
+                      <button
+                        type="submit"
+                        className="p-2 pl-5 pr-5 bg-black text-sm text-white rounded-lg"
+                      >
                         Continue
                       </button>
                     </div>

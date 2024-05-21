@@ -9,7 +9,11 @@ const app = express();
 
 // database connection
 mongoose
-  .connect(process.env.MONGODB_URL)
+  .connect(process.env.MONGODB_URL, {
+    dbName: "taskManager",
+    bufferCommands: false,
+    connectTimeoutMS: 30000,
+  })
   .then(() => console.log("Database Connected"))
   .catch((err) => console.log("Database not connected", err));
 

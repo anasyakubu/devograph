@@ -7,6 +7,10 @@ import { Toaster } from "react-hot-toast";
 import Task from "./pages/Tasks/Task";
 import CreateTask from "./pages/CreateTask/CreateTask";
 import UpdateTask from "./pages/UpdateTask/UpdateTask";
+import axios from "axios";
+
+axios.defaults.baseURL = "http://localhost:9000";
+axios.defaults.withCredentials = true;
 
 function App() {
   return (
