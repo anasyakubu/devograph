@@ -1,6 +1,8 @@
 // import React from 'react'
 
-const TaskCard = ({ name, desc, color }) => {
+import { Link } from "react-router-dom";
+
+const TaskCard = ({ name, desc, color, id, handleDelete }) => {
   return (
     <div className="TaskCard">
       <div className={`p-3 py-10 m-2 rounded-xl shadow-xl ${color}`}>
@@ -9,10 +11,16 @@ const TaskCard = ({ name, desc, color }) => {
           {desc}
         </p>
         <div className="mt-10 flex gap-3">
-          <button className="bg-white p-1 pl-3 pr-3 rounded-lg text-sm">
+          <Link
+            to={`/update-task/${id}`}
+            className="bg-white p-1 pl-3 pr-3 rounded-lg text-sm"
+          >
             Edit
-          </button>
-          <button className="bg-white p-1 pl-3 pr-3 rounded-lg text-sm">
+          </Link>
+          <button
+            onClick={handleDelete}
+            className="bg-white p-1 pl-3 pr-3 rounded-lg text-sm"
+          >
             Delete
           </button>
         </div>

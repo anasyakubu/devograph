@@ -17,6 +17,8 @@ const Create = () => {
   const [data, setDate] = useState({
     name: "",
     description: "",
+    startDate: "",
+    endDate: "",
     status: "",
     userID: localStorage.getItem("userID"),
   });
@@ -25,13 +27,15 @@ const Create = () => {
 
   const handleSubmite = async (e) => {
     e.preventDefault();
-    const { name, description, status, userID } = data;
+    const { name, description, startDate, endDate, status, userID } = data;
     console.log(data);
 
     try {
       const { data } = await axios.post("/createTask", {
         name,
         description,
+        startDate,
+        endDate,
         status,
         userID,
       });
@@ -96,6 +100,33 @@ const Create = () => {
                         setDate({ ...data, description: e.target.value })
                       }
                     ></textarea>
+                  </div>
+                  <div className="mt-5">
+                    <div className="space-y-2 lg:grid lg:grid-cols-2 lg:gap-x-6 lg:space-y-0">
+                      <div className="">
+                        <label className="text-black text-sm">Start Date</label>
+                        <input
+                          className="w-full outline-none text-sm border border-black p-3 rounded-lg mt-3 bg-gray-100 text-black"
+                          type="datetime-local"
+                          value={data.startDate}
+                          onChange={(e) =>
+                            setDate({ ...data, startDate: e.target.value })
+                          }
+                        />
+                      </div>
+                      {/*  */}
+                      <div className="">
+                        <label className="text-black text-sm">End Date</label>
+                        <input
+                          className="w-full outline-none text-sm border border-black p-3 rounded-lg mt-3 bg-gray-100 text-black"
+                          type="datetime-local"
+                          value={data.endDate}
+                          onChange={(e) =>
+                            setDate({ ...data, endDate: e.target.value })
+                          }
+                        />
+                      </div>
+                    </div>
                   </div>
                   <div className="mt-5">
                     <label className="text-black text-sm">Status</label>

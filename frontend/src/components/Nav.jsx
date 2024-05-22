@@ -58,10 +58,10 @@ export default function Nav() {
              
             </a> */}
             <a
-              href="/login"
+              href="/create-task"
               className="text-sm font-semibold p-2 pr-5 pl-5 leading-6 text-white bg-black rounded-3xl"
             >
-              Sign up
+              Create Task
             </a>
           </div>
         </nav>

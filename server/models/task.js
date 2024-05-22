@@ -6,10 +6,25 @@ const taskSchema = new Schema(
     name: {
       type: String,
       unique: true,
+      required: true,
     },
-    description: String,
+    description: {
+      type: String,
+      required: true,
+    },
     status: String,
-    userID: String,
+    userID: {
+      type: String,
+      required: true,
+    },
+    startDate: {
+      type: Date,
+      required: true,
+    },
+    endDate: {
+      type: Date,
+      required: true,
+    },
   },
   { timestamps: true }
 );

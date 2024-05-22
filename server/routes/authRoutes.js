@@ -6,7 +6,10 @@ const {
   test,
   registerUser,
   taskList,
+  getTask,
   createTask,
+  updateTask,
+  deleteUser,
   loginUser,
   getProfile,
 } = require("../controllers/authControllers");
@@ -26,7 +29,10 @@ router.get("/", test);
 router.post("/register", registerUser);
 router.post("/login", loginUser);
 router.get("/taskList", taskList);
+router.get("/getTask/:id", getTask);
 router.post("/createTask", createTask);
+router.post("/updateTask", updateTask);
+router.delete("/deleteUser/:id", deleteUser);
 router.get("/profile", requireAuth, getProfile);
 
 module.exports = router;

@@ -67,7 +67,7 @@ const loginUser = async (req, res) => {
     const token = jwt.sign(
       { email: user.email, userId: user._id },
       process.env.JWT_SECRET,
-      { expiresIn: "1hr" }
+      { expiresIn: "10hr" }
     );
 
     return res.json({
@@ -96,13 +96,22 @@ const taskList = (req, res) => {
   // const { userID } = req.body;
   // console.log(userID);
   Task.find({})
-    .then((user) => res.json(user))
+    .then((task) => res.json(task))
     .catch((err) => console.log(err));
 };
 
+// Fetch [One]
+const getTask = (req, res) => {
+  const id = req.params.id;
+  Task.find({ _id: id })
+    .then((task) => res.json(task))
+    .catch((err) => console.log(err));
+};
+
+// Create Task
 const createTask = async (req, res) => {
   try {
-    const { name, description, status, userID } = req.body;
+    const { name, description, status, startDate, endDate, userID } = req.body;
     // check if name was entered
     if (!name) {
       return res.json({
@@ -111,6 +120,14 @@ const createTask = async (req, res) => {
     } else if (!description) {
       return res.json({
         error: "Task Description is required",
+      });
+    } else if (!startDate) {
+      return res.json({
+        error: "Start Date is required",
+      });
+    } else if (!endDate) {
+      return res.json({
+        error: "End Date is required",
       });
     } else if (!userID) {
       return res.json({
@@ -130,6 +147,8 @@ const createTask = async (req, res) => {
       name,
       description,
       status: "Inprogress",
+      startDate,
+      endDate,
       userID,
     });
     return res.json(task);
@@ -138,11 +157,26 @@ const createTask = async (req, res) => {
   }
 };
 
+// update task
+const updateTask = async (req, res) => {};
+
+// delete task
+
+const deleteUser = (req, res) => {
+  const id = req.params.id;
+  Task.findByIdAndDelete({ _id: id })
+    .then((task) => res.json(task))
+    .catch((err) => console.log(err));
+};
+
 module.exports = {
   test,
   registerUser,
   loginUser,
   getProfile,
   taskList,
+  getTask,
   createTask,
+  updateTask,
+  deleteUser,
 };

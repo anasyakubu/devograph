@@ -1,7 +1,49 @@
-// import React from "react";
+import axios from "axios";
+import { useParams, useNavigate } from "react-router-dom";
+import { useState, useEffect } from "react";
 import "./Update.scss";
 
 const Update = () => {
+  const { id } = useParams();
+
+  const [name, setName] = useState();
+  const [description, setDescription] = useState();
+  const [status, setStatus] = useState();
+  const [startDate, setStartDate] = useState();
+  const [endDate, setEndDate] = useState();
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    axios
+      .get(`/getTask/${id}`)
+      .then((result) => {
+        // console.log(result.data);
+        // console.log(result.data);
+        setName(result.data.name);
+        setDescription(result.data.description);
+        setStatus(result.data.status);
+        console.log(result.data);
+
+        // console.log(`${name} | ${description} | ${status}`);
+      })
+      .catch((err) => console.log(err));
+  }, [id]);
+
+  const handleUpdate = (e) => {
+    e.preventDefault();
+    axios
+      .put(`/updateUser/${id}`, {
+        name,
+        description,
+        status,
+      })
+      .then((result) => {
+        console.log(result);
+        navigate("/");
+      })
+      .catch((err) => console.log(err));
+  };
+
   return (
     <div className="Update">
       <div className="p-10">
@@ -18,13 +60,15 @@ const Update = () => {
                 </h1>
               </div>
               <div className="mt-10">
-                <form>
+                <form onSubmit={handleUpdate}>
                   <div className="">
                     <label className="text-black text-sm">Name</label>
                     <input
                       className="w-full outline-none text-sm border border-black p-3 rounded-lg mt-3 bg-gray-100 text-black"
                       type="text"
                       placeholder="Fix NYM Bugs"
+                      value={name}
+                      onChange={(e) => setName(e.target.value)}
                     />
                   </div>
                   <div className="mt-5">
@@ -35,13 +79,42 @@ const Update = () => {
                       id=""
                       className="w-full outline-none text-sm border border-black p-3 rounded-lg mt-3 bg-gray-100 text-black"
                       placeholder="1. Fix the entaire sections & deploy to production"
+                      value={description}
+                      onChange={(e) => setDescription(e.target.value)}
                     ></textarea>
+                    <div className="mt-5">
+                      <div className="space-y-2 lg:grid lg:grid-cols-2 lg:gap-x-6 lg:space-y-0">
+                        <div className="">
+                          <label className="text-black text-sm">
+                            Start Date
+                          </label>
+                          <input
+                            className="w-full outline-none text-sm border border-black p-3 rounded-lg mt-3 bg-gray-100 text-black"
+                            type="date"
+                            value={startDate}
+                            onChange={(e) => setStartDate(e.target.value)}
+                          />
+                        </div>
+                        {/*  */}
+                        <div className="">
+                          <label className="text-black text-sm">End Date</label>
+                          <input
+                            className="w-full outline-none text-sm border border-black p-3 rounded-lg mt-3 bg-gray-100 text-black"
+                            type="date"
+                            value={endDate}
+                            onChange={(e) => setEndDate(e.target.value)}
+                          />
+                        </div>
+                      </div>
+                    </div>
                   </div>
                   <div className="mt-5">
                     <label className="text-black text-sm">Status</label>
                     <select
                       className="w-full outline-none text-sm border border-black p-3 rounded-lg mt-3 bg-gray-100 text-black"
                       id=""
+                      value={status}
+                      onChange={(e) => setStatus(e.target.value)}
                     >
                       {/* <option disabled selected>
                         Selete an option
@@ -52,7 +125,10 @@ const Update = () => {
                     </select>
                   </div>
                   <div className="mt-5 justify-center flex">
-                    <button className="bg-black text-white p-2 pr-5 pl-5 rounded-md shadow-lg">
+                    <button
+                      type="submit"
+                      className="bg-black text-white p-2 pr-5 pl-5 rounded-md shadow-lg"
+                    >
                       Update
                     </button>
                   </div>

@@ -1,15 +1,58 @@
 import { useState, useEffect } from "react";
 import TaskCard from "../../components/TaskCard";
 import "./TasksList.scss";
-import { Link } from "react-router-dom";
+import axios from "axios";
+import { toast } from "react-hot-toast";
 
 const TasksList = () => {
   const [dateTime, setDateTime] = useState(new Date());
+  const [users, setUsers] = useState([]);
+  const [currentPage, setCurrentPage] = useState(1);
+  const [color, setColor] = useState();
+  const tasksPerPage = 9; // Number of tasks per page
 
   useEffect(() => {
     const timerID = setInterval(() => tick(), 1000);
     return () => clearInterval(timerID);
   }, []);
+
+  // useEffect(() => {
+  //   axios
+  //     .get("/taskList")
+  //     .then((result) => {
+  //       const fetchUser = result.data;
+  //       const userTasks = fetchUser.filter(
+  //         (task) => task.userID === localStorage.getItem("userID")
+  //       );
+  //       setUsers(userTasks);
+  //     })
+  //     .catch((err) => console.log(err));
+  // }, []);
+  useEffect(() => {
+    axios
+      .get("/taskList")
+      .then((result) => {
+        const fetchUser = result.data;
+        const userTasks = fetchUser.filter(
+          (task) => task.userID === localStorage.getItem("userID")
+        );
+
+        // Map through userTasks and set color dynamically based on status
+        const tasksWithColor = userTasks.map((task) => {
+          if (task.status === "Inprogress") {
+            console.log("Inprogress");
+            setColor("bg-orange-500");
+          } else if (task.status === "Completed") {
+            console.log("Completed");
+            setColor("bg-green-600");
+          }
+          return { ...task, color }; // Add color property to task object
+        });
+
+        setUsers(tasksWithColor);
+      })
+      .catch((err) => console.log(err));
+  });
 
   function tick() {
     setDateTime(new Date());
@@ -29,6 +72,35 @@ const TasksList = () => {
     const formattedDate = date.toLocaleDateString("en-US", options);
     return formattedDate.replace(/(\d+)(th|st|nd|rd)/, "$1<sup>$2</sup>");
   }
+
+  // Calculate the current tasks to display
+  const indexOfLastTask = currentPage * tasksPerPage;
+  const indexOfFirstTask = indexOfLastTask - tasksPerPage;
+  const currentTasks = users.slice(indexOfFirstTask, indexOfLastTask);
+
+  // Change page
+  const paginate = (pageNumber) => setCurrentPage(pageNumber);
+
+  // Calculate total pages
+  const totalPages = Math.ceil(users.length / tasksPerPage);
+
+  const handleDelete = (id) => {
+    console.log("deleting...", id);
+    if (confirm("Do you want to delete this task")) {
+      alert("Deleted");
+      axios
+        .delete("/deleteUser/" + id)
+        .then((res) => {
+          console.log(res);
+          toast.success("Task deleted successfully");
+          window.location.reload();
+        })
+        .catch((err) => console.log(err));
+    } else {
+      toast.error("Cancel successfully");
+    }
+  };
+
   return (
     <div className="TasksList">
       <div className="p-10">
@@ -37,18 +109,14 @@ const TasksList = () => {
           <div className="flex justify-center">
             <div className="">
               <input
-                className="p-2 bg-white text-black outline-none border-2 border-black  rounded-lg w-96"
+                className="p-2 bg-white text-black outline-none border-2 border-black rounded-lg w-96"
                 type="search"
                 placeholder="Search Task...."
               />
-              {/* <button className="ml-5 p-2 bg-black text-white rounded-lg">
-                Search
-              </button> */}
             </div>
           </div>
           <div className="mt-10 flex justify-center">
             <div className="">
-              {" "}
               <h2
                 className="font-bold"
                 dangerouslySetInnerHTML={{
@@ -73,50 +141,32 @@ const TasksList = () => {
           {/* List Task */}
           <div className="mt-10">
             <div className="space-y-2 lg:grid lg:grid-cols-4 lg:gap-x-6 lg:space-y-0">
-              {/*  */}
-              <Link
-                to="/create-task"
-                className={`create p-5 py-5 text-center m-2 rounded-xl shadow-2xl text-black bg-white`}
-              >
-                <h6 className="text-xl font-bold my-10">Create a Task</h6>
-                <p className="text-sm my-10">
-                  Click the button to create a new task
-                </p>
-                <button className="bg-black text-white p-2 pr-5 pl-5 rounded-lg">
-                  Create a task
+              {currentTasks.map((user) => (
+                <TaskCard
+                  key={user._id}
+                  id={user._id}
+                  name={user.name}
+                  desc={user.description}
+                  handleDelete={() => handleDelete(user._id)}
+                  color={color}
+                />
+              ))}
+            </div>
+            {/* Pagination Controls */}
+            <div className="mt-5 flex justify-center">
+              {Array.from({ length: totalPages }, (_, index) => (
+                <button
+                  key={index}
+                  onClick={() => paginate(index + 1)}
+                  className={`px-3 py-1 mx-1 rounded ${
+                    index + 1 === currentPage
+                      ? "bg-blue-500 text-white"
+                      : "bg-gray-300"
+                  }`}
+                >
+                  {index + 1}
                 </button>
-              </Link>
-              {/*  */}
-              <TaskCard
-                name="Task One"
-                desc="Welcome to TaskFlow, your ultimate task manager software designed to streamline your workflow and enhance your productivity. Whether you`re a busy professional, a student with multiple assignments, or a freelancer juggling various projects,"
-                color="bg-green-500"
-              />
-              <TaskCard
-                name="Task One"
-                desc="Welcome to TaskFlow, your ultimate task manager software designed to streamline your workflow and enhance your productivity. Whether you`re a busy professional, a student with multiple assignments, or a freelancer juggling various projects,"
-                color="bg-red-500"
-              />
-              <TaskCard
-                name="Task One"
-                desc="Welcome to TaskFlow, your ultimate task manager software designed to streamline your workflow and enhance your productivity. Whether you`re a busy professional, a student with multiple assignments, or a freelancer juggling various projects,"
-                color="bg-green-500"
-              />
-              <TaskCard
-                name="Task One"
-                desc="Welcome to TaskFlow, your ultimate task manager software designed to streamline your workflow and enhance your productivity. Whether you`re a busy professional, a student with multiple assignments, or a freelancer juggling various projects,"
-                color="bg-orange-500"
-              />
-              <TaskCard
-                name="Task One"
-                desc="Welcome to TaskFlow, your ultimate task manager software designed to streamline your workflow and enhance your productivity. Whether you`re a busy professional, a student with multiple assignments, or a freelancer juggling various projects,"
-                color="bg-red-500"
-              />
-              <TaskCard
-                name="Task One"
-                desc="Welcome to TaskFlow, your ultimate task manager software designed to streamline your workflow and enhance your productivity. Whether you`re a busy professional, a student with multiple assignments, or a freelancer juggling various projects,"
-                color="bg-orange-500"
-              />
+              ))}
             </div>
           </div>
         </div>
