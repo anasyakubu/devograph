@@ -8,8 +8,8 @@ const TasksList = () => {
   const [dateTime, setDateTime] = useState(new Date());
   const [users, setUsers] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
-  const [color, setColor] = useState();
-  const tasksPerPage = 9; // Number of tasks per page
+  // const [color, setColor] = useState();
+  const tasksPerPage = 8; // Number of tasks per page
 
   useEffect(() => {
     const timerID = setInterval(() => tick(), 1000);
@@ -39,12 +39,11 @@ const TasksList = () => {
 
         // Map through userTasks and set color dynamically based on status
         const tasksWithColor = userTasks.map((task) => {
+          let color;
           if (task.status === "Inprogress") {
-            console.log("Inprogress");
-            setColor("bg-orange-500");
+            color = "bg-orange-500";
           } else if (task.status === "Completed") {
-            console.log("Completed");
-            setColor("bg-green-600");
+            color = "bg-green-600";
           }
           return { ...task, color }; // Add color property to task object
         });
@@ -52,7 +51,7 @@ const TasksList = () => {
         setUsers(tasksWithColor);
       })
       .catch((err) => console.log(err));
-  });
+  }, []); // Add empty dependency array to ensure useEffect runs only once
 
   function tick() {
     setDateTime(new Date());
@@ -148,7 +147,7 @@ const TasksList = () => {
                   name={user.name}
                   desc={user.description}
                   handleDelete={() => handleDelete(user._id)}
-                  color={color}
+                  color={user.color}
                 />
               ))}
             </div>
