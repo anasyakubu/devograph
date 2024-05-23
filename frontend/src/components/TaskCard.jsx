@@ -6,7 +6,11 @@ const TaskCard = ({ name, desc, date, color, id, handleDelete }) => {
   return (
     <div className="TaskCard">
       <div className={`p-3 py-10 m-2 rounded-xl shadow-xl ${color}`}>
-        <h5 className="text-xl font-bold">#{name}</h5>
+        <h5 className="text-xl font-bold">
+          <Link className="underline" to={`/view-task/${id}`}>
+            #{name}
+          </Link>
+        </h5>
         <p className="mt-5 text-sm" style={{ fontSize: "13px" }}>
           {desc}
         </p>
