@@ -13,7 +13,7 @@ import Notes from "./pages/Notes/Notes";
 import Today from "./pages/Today/Today";
 import Done from "./pages/Done/Done";
 
-axios.defaults.baseURL = "http://localhost:9000";
+axios.defaults.baseURL = "https://devograph.onrender.com";
 axios.defaults.withCredentials = true;
 
 function App() {
