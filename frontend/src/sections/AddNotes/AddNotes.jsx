@@ -1,11 +1,22 @@
 // import React from "react";
 import { useState, useEffect } from "react";
 import axios from "axios";
+import { toast } from "react-hot-toast";
+import { useNavigate } from "react-router-dom";
 import "./AddNotes.scss";
 import NoteImage from "../../assets/Notes-amico.svg";
 
 const AddNotes = () => {
+  const navigate = useNavigate();
   const [users, setUsers] = useState([]);
+  const [data, setData] = useState({
+    name: "",
+    note: "",
+    taskID: "",
+    userID: localStorage.getItem("userID"),
+  });
+
+  // console.log(userID);
 
   useEffect(() => {
     axios
@@ -19,6 +30,30 @@ const AddNotes = () => {
       })
       .catch((err) => console.log(err));
   }, []); // Add empty dependency array to ensure useEffect runs only once
+
+  const handleSubmite = async (e) => {
+    e.preventDefault();
+    const { name, note, taskID, userID } = data;
+    console.log(data);
+
+    try {
+      const { data } = await axios.post("/createNote", {
+        name,
+        note,
+        taskID,
+        userID,
+      });
+      if (data.error) {
+        toast.error(data.error);
+      } else {
+        setData({});
+        toast.success("Note Added Successfully");
+        navigate("/tasks");
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  };
 
   return (
     <div className="AddNotes">
@@ -36,15 +71,18 @@ const AddNotes = () => {
                 </h1>
               </div>
               <div className="mt-10">
-                <form
-                //onSubmit={handleUpdate}
-                >
+                <form onSubmit={handleSubmite}>
                   <div className="mt-5">
                     <label className="text-black text-sm">Selete Task</label>
                     <select
                       className="w-full outline-none text-sm border border-black p-3 rounded-lg mt-3 bg-gray-100 text-black"
                       id=""
+                      value={data.taskID} // Use data.taskID
+                      onChange={(e) =>
+                        setData({ ...data, taskID: e.target.value })
+                      }
                     >
+                      <option selected>Select a Task</option>
                       {users.map((user) => (
                         <option key={user._id} value={user._id}>
                           {user.name}
@@ -58,6 +96,10 @@ const AddNotes = () => {
                       className="w-full outline-none text-sm border border-black p-3 rounded-lg mt-3 bg-gray-100 text-black"
                       type="text"
                       placeholder="Note One"
+                      value={data.name}
+                      onChange={(e) =>
+                        setData({ ...data, name: e.target.value })
+                      }
                     />
                   </div>
                   <div className="mt-5">
@@ -68,6 +110,10 @@ const AddNotes = () => {
                       id=""
                       className="w-full outline-none text-sm border border-black p-3 rounded-lg mt-3 bg-gray-100 text-black"
                       placeholder="Secrete key is **********"
+                      value={data.note}
+                      onChange={(e) =>
+                        setData({ ...data, note: e.target.value })
+                      }
                     ></textarea>
                   </div>
 

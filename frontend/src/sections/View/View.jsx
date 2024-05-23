@@ -7,12 +7,15 @@ import "./View.scss";
 const View = () => {
   const { id } = useParams();
 
+  const [taskID, setTaskID] = useState("");
   const [name, setName] = useState("");
   const [description, setDescription] = useState("");
   const [status, setStatus] = useState("");
   const [statusColor, setStatusColor] = useState("");
   const [startDate, setStartDate] = useState("");
   const [endDate, setEndDate] = useState("");
+
+  const [getNotes, setGetNotes] = useState("");
 
   useEffect(() => {
     axios
@@ -28,6 +31,8 @@ const View = () => {
         } else if (taskData.status === "Expire") {
           setStatusColor("bg-red-600");
         }
+        setTaskID(taskData._id);
+        // console.log(taskID);
         setName(taskData.name);
         setDescription(taskData.description);
         setStatus(taskData.status);
@@ -36,6 +41,22 @@ const View = () => {
       })
       .catch((err) => console.log(err));
   }, [id]);
+
+  // Get Note
+  useEffect(() => {
+    axios
+      .get("/noteList")
+      .then((result) => {
+        const fetchNote = result.data;
+        console.log(fetchNote[0].taskID);
+        const note = fetchNote
+          .filter((note) => note.taskID === taskID)
+          .reverse();
+        setGetNotes(note);
+        console.log(note);
+      })
+      .catch((err) => console.log(err));
+  }); // Add empty dependency array to ensure useEffect runs only once
 
   return (
     <div className="View">
@@ -91,9 +112,17 @@ const View = () => {
                 </h3>
               </div>
               <div className="space-y-2 lg:grid lg:grid-cols-2 lg:gap-x-6 lg:space-y-0">
-                <NoteCard />
-                <NoteCard />
-                <NoteCard />
+                {Array.isArray(getNotes) && getNotes.length > 0 ? (
+                  getNotes.map((listNote) => (
+                    <NoteCard
+                      key={listNote._id}
+                      name={listNote.name}
+                      note={listNote.note}
+                    />
+                  ))
+                ) : (
+                  <p>No notes found</p>
+                )}
               </div>
             </div>
           </div>
