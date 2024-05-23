@@ -21,7 +21,7 @@ const Redirect = () => {
         };
 
         const reqOptions = {
-          url: "http://localhost:9000/profile",
+          url: "https://devograph.onrender.com/profile",
           method: "GET",
           headers: headersList,
         };
