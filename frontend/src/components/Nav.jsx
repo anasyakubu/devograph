@@ -7,8 +7,9 @@ import Logo from "../../public/vite.svg";
 const navigation = [
   { name: "Home", href: "/" },
   { name: "Tasks", href: "/tasks" },
-  { name: "Notes", href: "/notes" },
+  { name: "Today", href: "/today" },
   { name: "Done", href: "/done" },
+  { name: "Notes", href: "/notes" },
 ];
 
 export default function Nav() {

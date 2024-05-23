@@ -1,17 +1,13 @@
 import { useState, useEffect } from "react";
 import TaskCard from "../../components/TaskCard";
-import "./TasksList.scss";
+import "./DoneList.scss";
 import axios from "axios";
 import { toast } from "react-hot-toast";
 import { format } from "date-fns";
 
-const TasksList = () => {
+const DoneList = () => {
   const [dateTime, setDateTime] = useState(new Date());
-  const [totalTasksCount, setTotalTasksCount] = useState(0);
-  const [inprogressTasksCount, setInprogressTasksCount] = useState(0);
   const [doneTasksCount, setDoneTasksCount] = useState(0);
-  const [expireTasksCount, setExpireTasksCount] = useState(0);
-
   const [users, setUsers] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
   const [formatDate, setFormatDate] = useState();
@@ -28,28 +24,14 @@ const TasksList = () => {
       .then((result) => {
         const fetchUser = result.data;
         const userTasks = fetchUser
-          .filter((task) => task.userID === localStorage.getItem("userID"))
+          .filter(
+            (task) =>
+              task.userID === localStorage.getItem("userID") &&
+              task.status === "Completed"
+          )
           .reverse();
-        // Get the count of total tasks
-        setTotalTasksCount(userTasks.length);
-        // Get the count of tasks with different statuses
-        const inprogressTasksCount = userTasks.filter(
-          (task) => task.status === "Inprogress"
-        ).length;
-        const doneTasksCount = userTasks.filter(
-          (task) => task.status === "Completed"
-        ).length;
-        const expireTasksCount = userTasks.filter(
-          (task) => task.status === "Expire"
-        ).length;
-
-        // Set the state variables for counts
-        setInprogressTasksCount(inprogressTasksCount);
-        setDoneTasksCount(doneTasksCount);
-        setExpireTasksCount(expireTasksCount);
-        // setTotalTasksCount(totalTasksCount);
-        // // Calculate the total number of tasks
-        //  const totalTasksCount = userTasks.length;
+        // Get the count of completed tasks
+        setDoneTasksCount(userTasks.length);
 
         // Map through userTasks and set color dynamically based on status
         const tasksWithColor = userTasks.map((task) => {
@@ -119,7 +101,7 @@ const TasksList = () => {
   };
 
   return (
-    <div className="TasksList">
+    <div className="DoneList">
       <div className="p-10">
         <div className="sm:py-5">
           {/* Search */}
@@ -144,17 +126,8 @@ const TasksList = () => {
                 className="flex gap-3 mt-5 font-semibold sm:text-sm"
                 style={{ fontSize: "12px" }}
               >
-                <span className="bg-orange-500 p-2 rounded-md">
-                  Inprogress ({inprogressTasksCount})
-                </span>
                 <span className="bg-green-500 p-2 rounded-md">
-                  Done ({doneTasksCount})
-                </span>
-                <span className="bg-red-500 p-2 rounded-md">
-                  Expire ({expireTasksCount})
-                </span>
-                <span className="bg-black text-white p-2 rounded-md">
-                  Total ({totalTasksCount})
+                  Total Completed ({doneTasksCount})
                 </span>
               </h6>
             </div>
@@ -197,4 +170,4 @@ const TasksList = () => {
   );
 };
 
-export default TasksList;
+export default DoneList;
