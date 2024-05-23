@@ -162,7 +162,48 @@ const createTask = async (req, res) => {
 };
 
 // update task
-const updateTask = async (req, res) => {};
+const updateTask = async (req, res) => {
+  const id = req.params.id;
+  try {
+    const { name, description, status, startDate, endDate } = req.body;
+    if (!name) {
+      return res.json({
+        error: "Task Name is required",
+      });
+    } else if (!description) {
+      return res.json({
+        error: "Task Description is required",
+      });
+    } else if (!startDate) {
+      return res.json({
+        error: "Start Date is required",
+      });
+    } else if (!endDate) {
+      return res.json({
+        error: "End Date is required",
+      });
+    } else if (!status) {
+      return res.json({
+        error: "Status required",
+      });
+    }
+
+    const update = await Task.findByIdAndUpdate(
+      { _id: id },
+      {
+        name,
+        description,
+        startDate,
+        endDate,
+        status,
+      }
+    )
+      .then((update) => res.json(update))
+      .catch((err) => console.log(err));
+  } catch (error) {
+    console.log(error);
+  }
+};
 
 // delete task
 

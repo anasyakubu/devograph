@@ -5,7 +5,7 @@ import { useNavigate } from "react-router-dom";
 import axios from "axios";
 
 const Create = () => {
-  // const [userID, setUserID] = useState(null);
+  // const [status, setStatus] = useState("");
   const navigate = useNavigate();
 
   // setUserID(localStorage.getItem("userID"));
@@ -14,7 +14,7 @@ const Create = () => {
   //   setUserID(localStorage.getItem("userID"));
   // }, []);
 
-  const [data, setDate] = useState({
+  const [data, setData] = useState({
     name: "",
     description: "",
     startDate: "",
@@ -42,7 +42,7 @@ const Create = () => {
       if (data.error) {
         toast.error(data.error);
       } else {
-        setDate({});
+        setData({});
         toast.success("Task Created Successfully");
         navigate("/tasks");
       }
@@ -83,7 +83,7 @@ const Create = () => {
                       placeholder="Fix NYM Bugs"
                       value={data.name}
                       onChange={(e) =>
-                        setDate({ ...data, name: e.target.value })
+                        setData({ ...data, name: e.target.value })
                       }
                     />
                   </div>
@@ -97,7 +97,7 @@ const Create = () => {
                       placeholder="1. Fix the entaire sections & deploy to production"
                       value={data.description}
                       onChange={(e) =>
-                        setDate({ ...data, description: e.target.value })
+                        setData({ ...data, description: e.target.value })
                       }
                     ></textarea>
                   </div>
@@ -110,7 +110,7 @@ const Create = () => {
                           type="datetime-local"
                           value={data.startDate}
                           onChange={(e) =>
-                            setDate({ ...data, startDate: e.target.value })
+                            setData({ ...data, startDate: e.target.value })
                           }
                         />
                       </div>
@@ -122,7 +122,7 @@ const Create = () => {
                           type="datetime-local"
                           value={data.endDate}
                           onChange={(e) =>
-                            setDate({ ...data, endDate: e.target.value })
+                            setData({ ...data, endDate: e.target.value })
                           }
                         />
                       </div>
@@ -132,18 +132,22 @@ const Create = () => {
                     <label className="text-black text-sm">Status</label>
                     <select
                       className="w-full outline-none text-sm border border-black p-3 rounded-lg mt-3 bg-gray-100 text-black"
-                      value={data.status}
+                      value={data.status} // Use data.status
                       onChange={(e) =>
-                        setDate({ ...data, status: e.target.value })
+                        setData({ ...data, status: e.target.value })
                       }
                     >
-                      <option value="Inprogress">In Progress</option>
-                      <option value="Done">Done</option>
+                      <option selected>Select Status</option>
+                      <option value="Inprogress">InProgress</option>
+                      <option value="Completed">Completed</option>
                       <option value="Expire">Expired</option>
                     </select>
                   </div>
                   <div className="mt-5 justify-center flex">
-                    <button className="bg-black text-white p-2 pr-5 pl-5 rounded-md shadow-lg">
+                    <button
+                      type="submit"
+                      className="bg-black text-white p-2 pr-5 pl-5 rounded-md shadow-lg"
+                    >
                       Add
                     </button>
                   </div>

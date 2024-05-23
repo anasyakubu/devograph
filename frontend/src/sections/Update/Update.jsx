@@ -1,6 +1,7 @@
 import axios from "axios";
 import { useParams, useNavigate } from "react-router-dom";
 import { useState, useEffect } from "react";
+import { toast } from "react-hot-toast";
 import "./Update.scss";
 
 const Update = () => {
@@ -31,14 +32,17 @@ const Update = () => {
   const handleUpdate = (e) => {
     e.preventDefault();
     axios
-      .put(`/updateUser/${id}`, {
+      .put(`/updateTask/${id}`, {
         name,
         description,
+        startDate,
+        endDate,
         status,
       })
       .then((result) => {
         console.log(result);
-        navigate("/");
+        toast.success("Task Updated Successfully");
+        navigate("/tasks");
       })
       .catch((err) => console.log(err));
   };

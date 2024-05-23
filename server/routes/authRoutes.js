@@ -31,7 +31,7 @@ router.post("/login", loginUser);
 router.get("/taskList", taskList);
 router.get("/getTask/:id", getTask);
 router.post("/createTask", createTask);
-router.post("/updateTask", updateTask);
+router.put("/updateTask/:id", updateTask);
 router.delete("/deleteUser/:id", deleteUser);
 router.get("/profile", requireAuth, getProfile);
 

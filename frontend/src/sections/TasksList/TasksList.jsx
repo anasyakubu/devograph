@@ -34,7 +34,10 @@ const TasksList = () => {
             color = "bg-orange-500";
           } else if (task.status === "Completed") {
             color = "bg-green-600";
+          } else if (task.status === "Expire") {
+            color = "bg-red-600";
           }
+
           return { ...task, color }; // Add color property to task object
         });
 
