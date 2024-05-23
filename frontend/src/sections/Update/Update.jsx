@@ -4,27 +4,26 @@ import { useState, useEffect } from "react";
 import "./Update.scss";
 
 const Update = () => {
+  const navigate = useNavigate();
   const { id } = useParams();
 
-  const [name, setName] = useState();
-  const [description, setDescription] = useState();
-  const [status, setStatus] = useState();
-  const [startDate, setStartDate] = useState();
-  const [endDate, setEndDate] = useState();
-  const navigate = useNavigate();
+  const [name, setName] = useState("");
+  const [description, setDescription] = useState("");
+  const [status, setStatus] = useState("");
+  const [startDate, setStartDate] = useState("");
+  const [endDate, setEndDate] = useState("");
 
   useEffect(() => {
     axios
       .get(`/getTask/${id}`)
       .then((result) => {
-        // console.log(result.data);
-        // console.log(result.data);
-        setName(result.data.name);
-        setDescription(result.data.description);
-        setStatus(result.data.status);
-        console.log(result.data);
-
-        // console.log(`${name} | ${description} | ${status}`);
+        const taskData = result.data[0];
+        console.log(taskData);
+        setName(taskData.name);
+        setDescription(taskData.description);
+        setStatus(taskData.status);
+        setStartDate(taskData.startDate);
+        setEndDate(taskData.endDate);
       })
       .catch((err) => console.log(err));
   }, [id]);
@@ -90,7 +89,7 @@ const Update = () => {
                           </label>
                           <input
                             className="w-full outline-none text-sm border border-black p-3 rounded-lg mt-3 bg-gray-100 text-black"
-                            type="date"
+                            type="text"
                             value={startDate}
                             onChange={(e) => setStartDate(e.target.value)}
                           />
@@ -100,7 +99,7 @@ const Update = () => {
                           <label className="text-black text-sm">End Date</label>
                           <input
                             className="w-full outline-none text-sm border border-black p-3 rounded-lg mt-3 bg-gray-100 text-black"
-                            type="date"
+                            type="text"
                             value={endDate}
                             onChange={(e) => setEndDate(e.target.value)}
                           />
@@ -116,11 +115,9 @@ const Update = () => {
                       value={status}
                       onChange={(e) => setStatus(e.target.value)}
                     >
-                      {/* <option disabled selected>
-                        Selete an option
-                      </option> */}
+                      <option>{status}</option>
                       <option>Inprogress</option>
-                      <option>Done</option>
+                      <option>Completed</option>
                       <option>Expire</option>
                     </select>
                   </div>

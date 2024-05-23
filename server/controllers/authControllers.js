@@ -129,6 +129,10 @@ const createTask = async (req, res) => {
       return res.json({
         error: "End Date is required",
       });
+    } else if (!status) {
+      return res.json({
+        error: "Status required",
+      });
     } else if (!userID) {
       return res.json({
         error: "UserID is required",
@@ -146,7 +150,7 @@ const createTask = async (req, res) => {
     const task = await Task.create({
       name,
       description,
-      status: "Inprogress",
+      status,
       startDate,
       endDate,
       userID,

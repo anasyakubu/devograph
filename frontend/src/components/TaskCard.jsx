@@ -2,7 +2,7 @@
 
 import { Link } from "react-router-dom";
 
-const TaskCard = ({ name, desc, color, id, handleDelete }) => {
+const TaskCard = ({ name, desc, date, color, id, handleDelete }) => {
   return (
     <div className="TaskCard">
       <div className={`p-3 py-10 m-2 rounded-xl shadow-xl ${color}`}>
@@ -26,7 +26,7 @@ const TaskCard = ({ name, desc, color, id, handleDelete }) => {
         </div>
 
         <div className="mt-5">
-          <p className="text-sm flex justify-end text-left">2 minutes ago</p>
+          <p className="text-sm flex justify-end text-left">{date}</p>
         </div>
       </div>
     </div>

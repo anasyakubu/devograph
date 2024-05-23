@@ -3,12 +3,13 @@ import TaskCard from "../../components/TaskCard";
 import "./TasksList.scss";
 import axios from "axios";
 import { toast } from "react-hot-toast";
+import { format } from "date-fns";
 
 const TasksList = () => {
   const [dateTime, setDateTime] = useState(new Date());
   const [users, setUsers] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
-  // const [color, setColor] = useState();
+  const [formatDate, setFormatDate] = useState();
   const tasksPerPage = 8; // Number of tasks per page
 
   useEffect(() => {
@@ -16,30 +17,19 @@ const TasksList = () => {
     return () => clearInterval(timerID);
   }, []);
 
-  // useEffect(() => {
-  //   axios
-  //     .get("/taskList")
-  //     .then((result) => {
-  //       const fetchUser = result.data;
-  //       const userTasks = fetchUser.filter(
-  //         (task) => task.userID === localStorage.getItem("userID")
-  //       );
-  //       setUsers(userTasks);
-  //     })
-  //     .catch((err) => console.log(err));
-  // }, []);
   useEffect(() => {
     axios
       .get("/taskList")
       .then((result) => {
         const fetchUser = result.data;
-        const userTasks = fetchUser.filter(
-          (task) => task.userID === localStorage.getItem("userID")
-        );
+        const userTasks = fetchUser
+          .filter((task) => task.userID === localStorage.getItem("userID"))
+          .reverse();
 
         // Map through userTasks and set color dynamically based on status
         const tasksWithColor = userTasks.map((task) => {
           let color;
+          setFormatDate(format(new Date(task.startDate), "dd-MM-yyyy"));
           if (task.status === "Inprogress") {
             color = "bg-orange-500";
           } else if (task.status === "Completed") {
@@ -146,6 +136,7 @@ const TasksList = () => {
                   id={user._id}
                   name={user.name}
                   desc={user.description}
+                  date={formatDate}
                   handleDelete={() => handleDelete(user._id)}
                   color={user.color}
                 />
