@@ -1,5 +1,6 @@
 const User = require("../models/user");
 const Task = require("../models/task");
+const Note = require("../models/note");
 const { hashPassword, comparePassword } = require("../helpers/auth");
 const jwt = require("jsonwebtoken");
 
@@ -206,12 +207,61 @@ const updateTask = async (req, res) => {
 };
 
 // delete task
-
 const deleteUser = (req, res) => {
   const id = req.params.id;
   Task.findByIdAndDelete({ _id: id })
     .then((task) => res.json(task))
     .catch((err) => console.log(err));
+};
+
+// Note List
+const noteList = (req, res) => {
+  Note.find({})
+    .then((note) => res.json(note))
+    .catch((err) => console.log(err));
+};
+
+// Create Note
+const createNote = async (req, res) => {
+  try {
+    const { name, note, taskID, userID } = req.body;
+    // check if name was entered
+    if (!name) {
+      return res.json({
+        error: "Note Name is required",
+      });
+    } else if (!note) {
+      return res.json({
+        error: "Note Description is required",
+      });
+    } else if (!taskID) {
+      return res.json({
+        error: "Select a Task",
+      });
+    } else if (!userID) {
+      return res.json({
+        error: "UserID is required",
+      });
+    }
+    // check task exist
+    const exist = await Note.findOne({ name });
+    if (exist) {
+      return res.json({
+        error: "Note Already Added",
+      });
+    }
+
+    // create Task in db
+    const createNote = await Note.create({
+      name,
+      note,
+      taskID,
+      userID,
+    });
+    return res.json(createNote);
+  } catch (error) {
+    console.log(error);
+  }
 };
 
 module.exports = {
@@ -224,4 +274,6 @@ module.exports = {
   createTask,
   updateTask,
   deleteUser,
+  noteList,
+  createNote,
 };
