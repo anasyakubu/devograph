@@ -28,10 +28,12 @@ const TodayList = () => {
       .then((result) => {
         const fetchUser = result.data;
         const today = new Date(); // Get the current date
-        const userTasks = fetchUser.filter((task) => {
-          const taskDate = new Date(task.createdAt); // Assuming createdAt is the field indicating task creation date
-          return taskDate.toDateString() === today.toDateString(); // Filter tasks created on the current day
-        });
+        const userTasks = fetchUser
+          .filter((task) => {
+            const taskDate = new Date(task.createdAt); // Assuming createdAt is the field indicating task creation date
+            return taskDate.toDateString() === today.toDateString(); // Filter tasks created on the current day
+          })
+          .reverse();
 
         // Get the count of tasks with different statuses
         const inprogressTasksCount = userTasks.filter(
