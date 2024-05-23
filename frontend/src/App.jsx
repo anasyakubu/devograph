@@ -9,6 +9,7 @@ import CreateTask from "./pages/CreateTask/CreateTask";
 import UpdateTask from "./pages/UpdateTask/UpdateTask";
 import axios from "axios";
 import ViewTask from "./pages/ViewTask/ViewTask";
+import Notes from "./pages/Notes/Notes";
 
 axios.defaults.baseURL = "http://localhost:9000";
 axios.defaults.withCredentials = true;
@@ -26,6 +27,7 @@ function App() {
           <Route path="/create-task" element={<CreateTask />}></Route>
           <Route path="/update-task/:id" element={<UpdateTask />}></Route>
           <Route path="/view-task/:id" element={<ViewTask />}></Route>
+          <Route path="/notes" element={<Notes />}></Route>
         </Routes>
       </BrowserRouter>
     </>
