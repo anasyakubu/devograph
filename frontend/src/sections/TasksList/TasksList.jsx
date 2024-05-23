@@ -48,13 +48,14 @@ const TasksList = () => {
         setDoneTasksCount(doneTasksCount);
         setExpireTasksCount(expireTasksCount);
         // setTotalTasksCount(totalTasksCount);
-        // // Calculate the total number of tasks
+        // Calculate the total number of tasks
         //  const totalTasksCount = userTasks.length;
 
         // Map through userTasks and set color dynamically based on status
+
         const tasksWithColor = userTasks.map((task) => {
-          let color;
           setFormatDate(format(new Date(task.startDate), "dd-MM-yyyy"));
+          let color;
           if (task.status === "Inprogress") {
             color = "bg-orange-500";
           } else if (task.status === "Completed") {
