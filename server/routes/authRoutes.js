@@ -17,12 +17,12 @@ const {
 } = require("../controllers/authControllers");
 
 // middleware
-router.use(
-  cros({
-    credentials: true,
-    origin: "http://localhost:5173", //or http://localhost:5173/ or https://devograph.vercel.app/
-  })
-);
+// router.use(
+//   cros({
+//     credentials: true,
+//     origin: "https://devograph.vercel.app", //or http://localhost:5173/ or https://devograph.vercel.app/
+//   })
+// );
 
 // Apply requireAuth middleware to protect all routes
 // router.use(requireAuth);

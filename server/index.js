@@ -1,6 +1,7 @@
 const express = require("express");
 const dotenv = require("dotenv").config();
-const cros = require("cors");
+const cors = require("cors");
+// const cors = require("cors");
 const { mongoose } = require("mongoose");
 const cookieParser = require("cookie-parser");
 const { errorHandler } = require("./middleware/errorHandler");
@@ -21,6 +22,16 @@ mongoose
 app.use(express.json());
 app.use(cookieParser());
 app.use(express.urlencoded({ extended: false }));
+
+// Create corsOptions object with your desired configuration
+const corsOptions = {
+  origin: "https://devograph.vercel.app/", // Set the allowed origin
+  methods: "GET,POST,DELETE,PUT", // Set the allowed HTTP methods
+  optionsSuccessStatus: 200, // Set the status code for successful preflight requests
+};
+
+// Pass corsOptions to the CORS middleware
+app.use(cors(corsOptions));
 
 app.use("/", require("./routes/authRoutes"));
 
