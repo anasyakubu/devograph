@@ -244,12 +244,12 @@ const createNote = async (req, res) => {
       });
     }
     // check task exist
-    const exist = await Note.findOne({ name });
-    if (exist) {
-      return res.json({
-        error: "Note Already Added",
-      });
-    }
+    // const exist = await Note.findOne({ name });
+    // if (exist) {
+    //   return res.json({
+    //     error: "Note Already Added",
+    //   });
+    // }
 
     // create Task in db
     const createNote = await Note.create({

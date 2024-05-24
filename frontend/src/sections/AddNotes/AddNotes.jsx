@@ -37,12 +37,15 @@ const AddNotes = () => {
     console.log(data);
 
     try {
-      const { data } = await axios.post("/createNote", {
-        name,
-        note,
-        taskID,
-        userID,
-      });
+      const { data } = await axios.post(
+        "https://devograph.onrender.com/createNote",
+        {
+          name,
+          note,
+          taskID,
+          userID,
+        }
+      );
       if (data.error) {
         toast.error(data.error);
       } else {
