@@ -20,7 +20,7 @@ const {
 router.use(
   cros({
     credentials: true,
-    origin: "https://devograph.vercel.app", //or http://localhost:5173/
+    origin: "http://localhost:5173", //or http://localhost:5173/ or https://devograph.vercel.app/
   })
 );
 
