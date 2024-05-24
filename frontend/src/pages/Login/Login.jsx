@@ -17,7 +17,10 @@ const Login = () => {
     e.preventDefault();
     const { email, password } = data;
     try {
-      const response = await axios.post("/login", { email, password });
+      const response = await axios.post(
+        "https://devograph.onrender.com/login",
+        { email, password }
+      );
       // console.log(response);
       // console.log(response.data);
       // console.log(response.data.token);

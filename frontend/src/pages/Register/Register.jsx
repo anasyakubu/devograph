@@ -18,7 +18,10 @@ const Register = () => {
     const { name, email, password } = data;
 
     try {
-      const { data } = await axios.post("/register", { name, email, password });
+      const { data } = await axios.post(
+        "https://devograph.onrender.com/register",
+        { name, email, password }
+      );
       if (data.error) {
         toast.error(data.error);
       } else {

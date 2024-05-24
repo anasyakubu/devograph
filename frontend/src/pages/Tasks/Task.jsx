@@ -1,12 +1,12 @@
 import Nav from "../../components/Nav";
-// import Redirect from "../../Redirect";
+import Redirect from "../../Redirect";
 import Footer from "../../sections/Footer/Footer";
 import TasksList from "../../sections/TasksList/TasksList";
 
 const Task = () => {
   return (
     <div className="Task bg-white text-black">
-      {/* <Redirect /> */}
+      <Redirect />
       <Nav />
       <TasksList />
       <Footer />
