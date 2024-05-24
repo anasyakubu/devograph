@@ -15,6 +15,13 @@ const navigation = [
 export default function Nav() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
+  // const handleLogout = () => {
+  //   // Clear token from localStorage or sessionStorage
+  //   localStorage.removeItem("token");
+  //   // Redirect to login page
+  //   history.push("/login");
+  // };
+
   return (
     <div className="bg-transparent">
       <header className="inset-x-0 top-0 z-50">
@@ -51,13 +58,6 @@ export default function Nav() {
             ))}
           </div>
           <div className="hidden lg:flex lg:flex-1 lg:justify-end">
-            {/* <a
-              href="/login"
-              className="text-sm font-semibold p-2 leading-6 text-gray-900"
-            >
-              Log in
-             
-            </a> */}
             <a
               href="/create-task"
               className="text-sm font-semibold p-2 pr-5 pl-5 leading-6 text-white bg-black rounded-3xl"
