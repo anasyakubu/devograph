@@ -19,7 +19,7 @@ const View = () => {
 
   useEffect(() => {
     axios
-      .get(`/getTask/${id}`)
+      .get(`https://devograph.onrender.com/getTask/${id}`)
       .then((result) => {
         const taskData = result.data[0];
         // let color;
@@ -45,7 +45,7 @@ const View = () => {
   // Get Note
   useEffect(() => {
     axios
-      .get("/noteList")
+      .get("https://devograph.onrender.com/noteList")
       .then((result) => {
         const fetchNote = result.data;
         console.log(fetchNote[0].taskID);

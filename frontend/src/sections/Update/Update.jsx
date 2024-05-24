@@ -16,7 +16,7 @@ const Update = () => {
 
   useEffect(() => {
     axios
-      .get(`/getTask/${id}`)
+      .get(`https://devograph.onrender.com/getTask/${id}`)
       .then((result) => {
         const taskData = result.data[0];
         console.log(taskData);
@@ -32,7 +32,7 @@ const Update = () => {
   const handleUpdate = (e) => {
     e.preventDefault();
     axios
-      .put(`/updateTask/${id}`, {
+      .put(`https://devograph.onrender.com/updateTask/${id}`, {
         name,
         description,
         startDate,

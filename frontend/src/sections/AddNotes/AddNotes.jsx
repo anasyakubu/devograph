@@ -20,7 +20,7 @@ const AddNotes = () => {
 
   useEffect(() => {
     axios
-      .get("/taskList")
+      .get("https://devograph.onrender.com/taskList")
       .then((result) => {
         const fetchUser = result.data;
         const userTasks = fetchUser

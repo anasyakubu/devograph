@@ -7,14 +7,14 @@ import { Toaster } from "react-hot-toast";
 import Task from "./pages/Tasks/Task";
 import CreateTask from "./pages/CreateTask/CreateTask";
 import UpdateTask from "./pages/UpdateTask/UpdateTask";
-import axios from "axios";
+// import axios from "axios";
 import ViewTask from "./pages/ViewTask/ViewTask";
 import Notes from "./pages/Notes/Notes";
 import Today from "./pages/Today/Today";
 import Done from "./pages/Done/Done";
 
-axios.defaults.baseURL = "https://devograph.onrender.com";
-axios.defaults.withCredentials = true;
+// axios.defaults.baseURL = "https://devograph.onrender.com";
+// axios.defaults.withCredentials = true;
 
 function App() {
   return (

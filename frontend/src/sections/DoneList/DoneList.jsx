@@ -20,7 +20,7 @@ const DoneList = () => {
 
   useEffect(() => {
     axios
-      .get("/taskList")
+      .get("https://devograph.onrender.com/taskList")
       .then((result) => {
         const fetchUser = result.data;
         const userTasks = fetchUser
@@ -88,7 +88,7 @@ const DoneList = () => {
     if (confirm("Do you want to delete this task")) {
       alert("Deleted");
       axios
-        .delete("/deleteUser/" + id)
+        .delete("https://devograph.onrender.com/deleteUser/" + id)
         .then((res) => {
           console.log(res);
           toast.success("Task deleted successfully");

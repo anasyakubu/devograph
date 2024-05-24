@@ -31,14 +31,17 @@ const Create = () => {
     console.log(data);
 
     try {
-      const { data } = await axios.post("/createTask", {
-        name,
-        description,
-        startDate,
-        endDate,
-        status,
-        userID,
-      });
+      const { data } = await axios.post(
+        "https://devograph.onrender.com/createTask",
+        {
+          name,
+          description,
+          startDate,
+          endDate,
+          status,
+          userID,
+        }
+      );
       if (data.error) {
         toast.error(data.error);
       } else {
