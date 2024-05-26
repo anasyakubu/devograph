@@ -30,6 +30,7 @@ const TodayList = () => {
         const today = new Date(); // Get the current date
         const userTasks = fetchUser
           .filter((task) => {
+            task.userID === localStorage.getItem("userID");
             const taskDate = new Date(task.createdAt); // Assuming createdAt is the field indicating task creation date
             return taskDate.toDateString() === today.toDateString(); // Filter tasks created on the current day
           })
