@@ -1,3 +1,30 @@
+// Import necessary modules
+const http = require("http");
+const cron = require("node-cron");
+
+// Define the server URL
+const serverUrl = "https://devograph.onrender.com"; // Replace with your server URL
+
+// Define the function to ping the server
+const pingServer = () => {
+  console.log("Pinging server...");
+  // Ping the server
+  http
+    .get(serverUrl, (res) => {
+      console.log(`Server response: ${res.statusCode}`);
+    })
+    .on("error", (err) => {
+      console.error("Error pinging server:", err);
+    });
+};
+
+// Define the cron schedule to run every 5 minutes
+cron.schedule("*/5 * * * *", () => {
+  pingServer();
+});
+
+// Your main application code goes here...
+
 const express = require("express");
 const dotenv = require("dotenv").config();
 const cors = require("cors");
