@@ -328,7 +328,7 @@ const create = async (req, res) => {
       status,
       startDate,
       endDate,
-      userID,
+      userID: userID,
     });
     return res.json(task);
   } catch (error) {
