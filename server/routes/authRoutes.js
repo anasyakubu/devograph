@@ -14,6 +14,11 @@ const {
   getProfile,
   noteList,
   createNote,
+  list,
+  get,
+  create,
+  update,
+  deleteTask,
 } = require("../controllers/authControllers");
 
 // middleware
@@ -40,6 +45,13 @@ router.delete("/deleteUser/:id", deleteUser);
 // Notes
 router.get("/noteList", noteList);
 router.post("/createNote", createNote);
+
+// external
+router.get("/list", list);
+router.get("/get/:id", get);
+router.post("/create", create);
+router.put("/update/:id", update);
+router.delete("/delete/:id", deleteTask);
 
 // profile
 router.get("/profile", requireAuth, getProfile);

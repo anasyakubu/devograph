@@ -264,6 +264,130 @@ const createNote = async (req, res) => {
   }
 };
 
+// external
+
+const list = (req, res) => {
+  const getUserID = "665b235e7869b1e0a14ff4d7";
+  // console.log(userID);
+  Task.find({ userID: getUserID })
+    .then((task) => res.json(task))
+    .catch((err) => console.log(err));
+};
+
+// get
+const get = (req, res) => {
+  const id = req.params.id;
+  Task.find({ _id: id })
+    .then((task) => res.json(task))
+    .catch((err) => console.log(err));
+};
+
+// create
+const create = async (req, res) => {
+  try {
+    const { name, description, status, startDate, endDate } = req.body;
+    const userID = "665b235e7869b1e0a14ff4d7";
+    // check if name was entered
+    if (!name) {
+      return res.json({
+        error: "Task Name is required",
+      });
+    } else if (!description) {
+      return res.json({
+        error: "Task Description is required",
+      });
+    } else if (!startDate) {
+      return res.json({
+        error: "Start Date is required",
+      });
+    } else if (!endDate) {
+      return res.json({
+        error: "End Date is required",
+      });
+    } else if (!status) {
+      return res.json({
+        error: "Status required",
+      });
+    } else if (!userID) {
+      return res.json({
+        error: "UserID is required",
+      });
+    }
+    // check task exist
+    const exist = await Task.findOne({ name });
+    if (exist) {
+      return res.json({
+        error: "Task Already Added",
+      });
+    }
+
+    // create Task in db
+    const task = await Task.create({
+      name,
+      description,
+      status,
+      startDate,
+      endDate,
+      userID,
+    });
+    return res.json(task);
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+//update
+const update = async (req, res) => {
+  const id = req.params.id;
+  try {
+    const { name, description, status, startDate, endDate } = req.body;
+    if (!name) {
+      return res.json({
+        error: "Task Name is required",
+      });
+    } else if (!description) {
+      return res.json({
+        error: "Task Description is required",
+      });
+    } else if (!startDate) {
+      return res.json({
+        error: "Start Date is required",
+      });
+    } else if (!endDate) {
+      return res.json({
+        error: "End Date is required",
+      });
+    } else if (!status) {
+      return res.json({
+        error: "Status required",
+      });
+    }
+
+    const updateTask = await Task.findByIdAndUpdate(
+      { _id: id },
+      {
+        name,
+        description,
+        startDate,
+        endDate,
+        status,
+      }
+    )
+      .then((updateTask) => res.json(updateTask))
+      .catch((err) => console.log(err));
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+// deleteTask
+const deleteTask = (req, res) => {
+  const id = req.params.id;
+  Task.findByIdAndDelete({ _id: id })
+    .then((task) => res.json(task))
+    .catch((err) => console.log(err));
+};
+
 module.exports = {
   test,
   registerUser,
@@ -276,4 +400,10 @@ module.exports = {
   deleteUser,
   noteList,
   createNote,
+  // External
+  list,
+  get,
+  create,
+  update,
+  deleteTask,
 };
